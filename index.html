@@ -1,0 +1,489 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F5F0E8;
+    --warm-white: #FDFAF4;
+    --ink: #1A1612;
+    --ink-light: #3D342A;
+    --rust: #C4502A;
+    --rust-light: #E8C4B0;
+    --sage: #6B7B5E;
+    --sage-light: #D4DBC8;
+    --gold: #B8922A;
+    --border: #D8D0C0;
+  }
+
+  body {
+    background: var(--cream);
+    font-family: 'DejaVu Sans', 'Liberation Sans', sans-serif;
+    color: var(--ink);
+    margin: 0;
+    padding: 0;
+  }
+
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    background: var(--warm-white);
+    padding: 56px 64px 72px;
+    position: relative;
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+
+  .top-bar {
+    height: 5px;
+    background: linear-gradient(90deg, #C4502A 0%, #B8922A 50%, #6B7B5E 100%);
+    margin: -56px -64px 40px -64px;
+  }
+
+  .label {
+    font-family: 'DejaVu Sans Mono', 'Liberation Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  h1 {
+    font-family: 'DejaVu Serif', 'Liberation Serif', Georgia, serif;
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--rust);
+  }
+
+  .subtitle {
+    font-size: 13px;
+    font-weight: normal;
+    color: var(--ink-light);
+    line-height: 1.65;
+    max-width: 480px;
+    margin-top: 12px;
+  }
+
+  .byline {
+    margin-top: 18px;
+    font-family: 'DejaVu Sans Mono', monospace;
+    font-size: 9px;
+    color: var(--gold);
+    letter-spacing: 0.14em;
+  }
+
+  header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 28px;
+    margin-bottom: 32px;
+  }
+
+  .intro-block {
+    border-left: 3px solid var(--rust);
+    padding: 12px 20px;
+    margin-bottom: 36px;
+    background: rgba(196, 80, 42, 0.04);
+  }
+
+  .intro-block p {
+    font-family: 'DejaVu Serif', serif;
+    font-size: 14px;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--ink-light);
+  }
+
+  section { margin-bottom: 36px; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .section-tag {
+    font-family: 'DejaVu Sans Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+
+  .tag-rust { background: #C4502A; color: white; }
+  .tag-sage { background: #6B7B5E; color: white; }
+  .tag-gold { background: #B8922A; color: white; }
+  .tag-ink  { background: #1A1612; color: white; }
+
+  h2 {
+    font-family: 'DejaVu Serif', serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--ink);
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 6px 0 20px;
+  }
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+  .divider-dot  { width: 4px; height: 4px; background: var(--rust); border-radius: 50%; }
+
+  /* Principles */
+  .principles {
+    display: table;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 12px;
+    margin: -12px;
+  }
+  .principles-row { display: table-row; }
+  .principle {
+    display: table-cell;
+    width: 33%;
+    padding: 16px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+    border-top: 2px solid var(--border);
+  }
+  .principle.p1 { border-top-color: var(--rust); }
+  .principle.p2 { border-top-color: var(--sage); }
+  .principle.p3 { border-top-color: var(--gold); }
+
+  .principle-num {
+    font-family: 'DejaVu Serif', serif;
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .principle-title {
+    font-size: 11px;
+    font-weight: bold;
+    color: var(--ink);
+    margin-bottom: 5px;
+  }
+  .principle-desc {
+    font-size: 10.5px;
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+
+  /* Time blocks */
+  .time-blocks { display: flex; flex-direction: column; gap: 2px; }
+  .time-row { display: flex; min-height: 40px; }
+  .time-label {
+    font-family: 'DejaVu Sans Mono', monospace;
+    font-size: 9px;
+    color: var(--gold);
+    width: 72px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    padding-right: 12px;
+    letter-spacing: 0.05em;
+  }
+  .time-content {
+    border-left: 2px solid var(--border);
+    padding: 9px 14px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: var(--ink-light);
+    line-height: 1.4;
+  }
+  .block-tag {
+    font-family: 'DejaVu Sans Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    margin-right: 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .block-research { background: var(--sage-light); color: var(--sage); }
+  .block-explore  { background: var(--rust-light); color: var(--rust); }
+  .block-build    { background: #E8E0D0; color: var(--gold); }
+  .block-admin    { background: #E8E8E8; color: #888; }
+
+  /* Day grid — 2-column table */
+  .day-grid {
+    display: table;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 10px;
+    margin: -10px;
+  }
+  .day-row { display: table-row; }
+  .day-card {
+    display: table-cell;
+    width: 50%;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .day-name {
+    font-family: 'DejaVu Sans Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 5px;
+  }
+  .day-theme {
+    font-family: 'DejaVu Serif', serif;
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--ink);
+    margin-bottom: 7px;
+  }
+  .day-task {
+    font-size: 11px;
+    color: var(--ink-light);
+    line-height: 1.45;
+    padding-left: 12px;
+    position: relative;
+    margin-bottom: 4px;
+  }
+  .day-task::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--border);
+    font-size: 9px;
+  }
+
+  /* Check-in */
+  .checkin-grid {
+    display: table;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 14px;
+    margin: -14px;
+  }
+  .checkin-row { display: table-row; }
+  .checkin-box {
+    display: table-cell;
+    width: 50%;
+    padding: 16px 18px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .checkin-label {
+    font-family: 'DejaVu Sans Mono', monospace;
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--sage);
+    margin-bottom: 10px;
+  }
+  .checkin-q {
+    font-size: 11px;
+    color: var(--ink-light);
+    line-height: 1.45;
+    padding-bottom: 7px;
+    margin-bottom: 7px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .checkin-q:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+
+  footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-name {
+    font-family: 'DejaVu Serif', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--rust);
+  }
+  .footer-handle {
+    font-family: 'DejaVu Sans Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: var(--ink-light);
+  }
+</style>
+<title data-id="th-modified">Web Page</title><meta property="og:title" content="Web Page" data-id="th-modified"><meta name="description" content="seema-weekly-system" data-id="th-modified"><meta property="og:description" content="seema-weekly-system" data-id="th-modified"><meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified"><meta property="og:image:width" content="1501" data-id="th-modified"><meta property="og:image:height" content="1501" data-id="th-modified"><meta property="og:image:type" content="image/png" data-id="th-modified"><meta property="og:url" content="https://blush-lorianna-37.tiiny.site/" data-id="th-modified"><meta property="og:type" content="website" data-id="th-modified"><script type="text/javascript" src="https://tiiny.host/ad-script.js"></script><script defer data-domain="blush-lorianna-37.tiiny.site" src="https://analytics.tiiny.site/js/plausible.js"></script></head>
+<body><div style="position: fixed !important; bottom: 0% !important; left: 0% !important; right: 0% !important; width: 100% !important; height: 55px !important; z-index: 9999 !important;"><a href="https://tiiny.host?ref=free-site">
+    <div style="padding: 10px !important; height: 55px; text-align: center; background: rgb(220,137,232) !important; background: linear-gradient(141deg, rgba(220,137,232,1) 0%, rgba(144,64,204,1) 100%) !important;">
+      <img style="height: 35px !important; width: auto !important;" src="https://tiiny.host/assets/img/ad.png" alt="tiiny.host">
+    </div>
+  </a></div><div style="position: fixed !important; bottom: 0% !important; left: 0% !important; right: 0% !important; width: 100% !important; height: 55px !important; z-index: 9999 !important;"><a href="https://tiiny.host?ref=free-site">
+    <div style="padding: 10px !important; height: 55px; text-align: center; background: rgb(220,137,232) !important; background: linear-gradient(141deg, rgba(220,137,232,1) 0%, rgba(144,64,204,1) 100%) !important;">
+      <img style="height: 35px !important; width: auto !important;" src="https://tiiny.host/assets/img/ad.png" alt="tiiny.host">
+    </div>
+  </a></div>
+<div class="page">
+  <div class="top-bar"></div>
+
+  <header>
+    <span class="label">Free Resource · PhD Student Edition</span>
+    <h1>The Weekly System for<br>the <em>Ambitious</em> PhD Student</h1>
+    <p class="subtitle   ablefocused">How to make progress on research, explore your city intentionally, and inch toward the goals you're dreaming of — without burning out.</p>
+    <div class="byline">BY SEEMA&nbsp;</div>
+  </header>
+
+  <div class="intro-block">
+    <p class="">"PhD doesn't consume you. You design the life around it — and let the research be one beautiful, hard, important piece of it."</p>
+  </div>
+
+  <!-- RULES -->
+  <section>
+    <div class="section-header">
+      <span class="section-tag tag-ink">The Foundation</span>
+      <h2>3 Rules That Run Everything</h2>
+    </div>
+    <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+    <div class="principles">
+      <div class="principles-row">
+        <div class="principle p1">
+          <div class="principle-num">01</div>
+          <div class="principle-title">Research is non-negotiable</div>
+          <div class="principle-desc">It gets its blocks first. Everything else fits around it. No guilt about protecting this time.</div>
+        </div>
+        <div class="principle p2">
+          <div class="principle-num">02</div>
+          <div class="principle-title">Exploration is not wasted time</div>
+          <div class="principle-desc">Your best ideas come on a walk, not at a desk. Treat exploration as an input, not a reward.</div>
+        </div>
+        <div class="principle p3">
+          <div class="principle-num">03</div>
+          <div class="principle-title">Build in the margins</div>
+          <div class="principle-desc">Startup thinking happens in small daily slots — reading, noting, talking. Not in big sessions.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAILY -->
+  <section>
+    <div class="section-header">
+      <span class="section-tag tag-rust">Daily Structure</span>
+      <h2>The Ideal Day</h2>
+    </div>
+    <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+    <div class="time-blocks">
+      <div class="time-row"><div class="time-label">7–8 am</div><div class="time-content"><span class="block-tag block-admin">Morning</span>No screens for first 30 min. Coffee, journal, or a short walk.</div></div>
+      <div class="time-row"><div class="time-label">8–12 pm</div><div class="time-content"><span class="block-tag block-research">Research</span>Deep work block. Lab, writing, reading papers. Phone on silent.</div></div>
+      <div class="time-row"><div class="time-label">12–1 pm</div><div class="time-content"><span class="block-tag block-explore">Explore</span>Lunch outside. Walk a new street. Shoot one photo. Reset your brain.</div></div>
+      <div class="time-row"><div class="time-label">1–4 pm</div><div class="time-content"><span class="block-tag block-research">Research</span>Second deep work block. Meetings, experiments, advisor check-ins.</div></div>
+      <div class="time-row"><div class="time-label">4–5 pm</div><div class="time-content"><span class="block-tag block-build">Build</span>One article, podcast, or idea note. 45 minutes max.</div></div>
+      <div class="time-row"><div class="time-label">5–7 pm</div><div class="time-content"><span class="block-tag block-explore">Explore</span>Free. City walks, content creation, friends, or genuine rest.</div></div>
+      <div class="time-row"><div class="time-label">7–9 pm</div><div class="time-content"><span class="block-tag block-admin">Wind Down</span>Light reading, content planning. No heavy work. Protect sleep.</div></div>
+    </div>
+  </section>
+
+  <!-- WEEKLY -->
+  <section>
+    <div class="section-header">
+      <span class="section-tag tag-sage">Weekly Map</span>
+      <h2>What Each Day Is For</h2>
+    </div>
+    <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+    <div class="day-grid">
+      <div class="day-row">
+        <div class="day-card">
+          <div class="day-name">Monday</div>
+          <div class="day-theme">Research Anchor Day</div>
+          <div class="day-task">Set the week's one research goal</div>
+          <div class="day-task">Deep literature or experiment work</div>
+          <div class="day-task">Email inbox: 20 minutes max</div>
+        </div>
+        <div class="day-card">
+          <div class="day-name">Tuesday</div>
+          <div class="day-theme">Create + Explore</div>
+          <div class="day-task">Morning research as usual</div>
+          <div class="day-task">Afternoon: step outside, change your environment.</div>
+          <div class="day-task">Create or capture one thing — photo, note, idea, draft<br></div>
+        </div>
+      </div>
+      <div class="day-row">
+        <div class="day-card">
+          <div class="day-name">Wednesday</div>
+          <div class="day-theme">Deep Work Day</div>
+          <div class="day-task">Longest research block of the week</div>
+          <div class="day-task">No social media until 5pm</div>
+          <div class="day-task">Advisor meeting if scheduled</div>
+        </div>
+        <div class="day-card">
+          <div class="day-name">Thursday</div>
+          <div class="day-theme">Build + Learn</div>
+          <div class="day-task">Morning research</div>
+          <div class="day-task">PM: startup reading, industry news, idea log</div>
+          <div class="day-task">Talk to one person outside academia</div>
+        </div>
+      </div>
+      <div class="day-row">
+        <div class="day-card">
+          <div class="day-name">Friday</div>
+          <div class="day-theme">Wrap + Reflect</div>
+          <div class="day-task">Finish the week's research goal</div>
+          <div class="day-task">Write 3 sentences: what moved forward</div>
+          <div class="day-task">Plan one fun exploration for the weekend</div>
+        </div>
+        <div class="day-card">
+          <div class="day-name">Weekend</div>
+          <div class="day-theme">Explore + Rest</div>
+          <div class="day-task">One intentional city exploration</div>
+          <div class="day-task">Batch content if inspired, never forced</div>
+          <div class="day-task">Full rest is non-negotiable on one day</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECK-IN -->
+  <section>
+    <div class="section-header">
+      <span class="section-tag tag-gold">Weekly Review</span>
+      <h2>Sunday Check-In (15 minutes)</h2>
+    </div>
+    <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+    <div class="checkin-grid">
+      <div class="checkin-row">
+        <div class="checkin-box">
+          <div class="checkin-label">Look Back</div>
+          <div class="checkin-q">What actually moved forward in my research this week?</div>
+          <div class="checkin-q">Did I protect my deep work time?</div>
+          <div class="checkin-q">What did I explore or create that felt good?</div>
+          <div class="checkin-q">One thing I'd do differently next week.</div>
+        </div>
+        <div class="checkin-box">
+          <div class="checkin-label">Look Ahead</div>
+          <div class="checkin-q">What is the one research outcome I need by Friday?</div>
+          <div class="checkin-q">What am I curious about this week , outside research?</div>
+          <div class="checkin-q">Do something creative only if it feels good, never because you should<br></div>
+          <div class="checkin-q">One intentional outing nature, city, anywhere that resets you<br></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-name">Seema</div>
+    <div class="footer-handle   ablefocused">PhD · AI · CYBERSECURITY ·</div>
+  </footer>
+</div>
+
+
+<div style="height: 55px !important;"></div><div style="height: 55px !important;"></div></body></html>
